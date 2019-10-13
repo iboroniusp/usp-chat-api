@@ -5,6 +5,7 @@ const express = require("express");
 const routes = require("./routes");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const port = process.env.PORT || 3005;
 
 var app = require("express")();
 var http = require("http").createServer(app);
@@ -32,4 +33,4 @@ mongoose.connect(dbUrl, {
 });
 
 app.use(routes);
-http.listen(3005);
+http.listen(port);
