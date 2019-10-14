@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 
+const port = process.env.PORT || 3005;
+
 var app = require("express")();
 
 var http = require("http").createServer(app);
@@ -15,6 +17,8 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 
 var dbUrl = "";
+const port = process.env.PORT || 3005;
+
 app.use(function (req, res, next) {
   req.io = io;
   next();
@@ -30,7 +34,9 @@ if (process.env === "development") {
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
+
 app.use(routes);
-http.listen(3005);
+http.listen(port);

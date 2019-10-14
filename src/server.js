@@ -8,9 +8,13 @@ const cors = require("cors");
 const port = process.env.PORT || 3005;
 
 var app = require("express")();
-var http = require("http").createServer(app);
-var io = require("socket.io")(http);
+var http = require("http").createServer(app); //define o protocolo http
+var io = require("socket.io")(http); //define o protocolo wss/websocket
 var dbUrl = "";
+
+io.on('connection', socket => {
+  console.log('Socket conectado: ' & socket.id);
+});
 
 app.use(function(req, res, next) {
   req.io = io;
@@ -21,7 +25,8 @@ app.use(express.json());
 app.use(cors());
 
 if (process.env === "development") {
-  dbUrl = "mongodb://localhost:27017/usp-chat";
+  dbUrl = "mongodb+srv://admin:admin@cluster0-rlodt.mongodb.net/test?retryWrites=true&w=majority"
+  //"mongodb://localhost:27017/usp-chat";
 } else {
   dbUrl =
     "mongodb+srv://admin:admin@cluster0-rlodt.mongodb.net/test?retryWrites=true&w=majority";
@@ -29,8 +34,10 @@ if (process.env === "development") {
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 app.use(routes);
 http.listen(port);
+console.log(port);
