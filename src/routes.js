@@ -12,6 +12,8 @@ const roomController = require("./controllers/roomController");
 // Rotas de usuário
 routes.post("/users/", userController.store);
 routes.get("/users/", userController.index);
+routes.get("/users/show/", userController.show);
+
 
 // Rotas de mensagens
 routes.post("/messages", messageController.store);
