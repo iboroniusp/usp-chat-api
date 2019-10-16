@@ -5,7 +5,7 @@ const express = require("express");
 const routes = require("./routes");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const port = process.env.PORT || 3005;
+port = process.env.PORT || 3005;
 
 var app = require("express")();
 var http = require("http").createServer(app); //define o protocolo http
