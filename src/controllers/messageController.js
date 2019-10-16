@@ -19,10 +19,15 @@ module.exports = {
         res.status(400).send({ error: "Essa sala não existe" });
       }
 
-      const result = await Message.create(req.body);
+      const data = await Message.create(req.body);
 
-      req.io.emit(room._id, result);
-      res.send(result);
+      const msg = {
+        ...data._doc,
+        user_id: user
+      };
+
+      req.io.emit(room._id, msg);
+      res.send(msg);
     } catch (error) {
       res.status(400).send({ error: String(error) });
     }
