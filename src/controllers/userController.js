@@ -7,11 +7,21 @@ module.exports = {
   // destroy() - destroi um registro - DELETE
   // update() - atualiza um registo - PUT
 
-  async index(req, res) {
+  async index(res) {
     try {
       const result = await User.find({});
 
       res.send(result);
+    } catch (error) {
+      res.status(400).send({ error: String(error) });
+    }
+  },
+
+  async show(req, res){
+    try {
+      const { user_id } = req.params;
+      const user = await User.findOne({user_id});
+      res.send(user.name)
     } catch (error) {
       res.status(400).send({ error: String(error) });
     }

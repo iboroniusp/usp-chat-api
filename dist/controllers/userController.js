@@ -17,6 +17,16 @@ module.exports = {
     }
   },
 
+  async show(req, res){
+    try {
+      const { user_id } = req.params;
+      const user = await User.findOne({user_id});
+      res.send(user.name)
+    } catch (error) {
+      res.status(400).send({ error: String(error) });
+    }
+  },
+
   async store(req, res) {
     //  req.body - Post
     //  req.params - Get
