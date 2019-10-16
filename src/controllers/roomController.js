@@ -25,7 +25,7 @@ module.exports = {
     try {
       const { room_id } = req.params;
 
-      const result = await Message.find({ room_id });
+      const result = await Message.find({ room_id }).populate("user_id");
 
       res.send(result);
     } catch (error) {

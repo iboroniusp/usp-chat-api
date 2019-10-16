@@ -21,7 +21,7 @@ module.exports = {
 
       const result = await Message.create(req.body);
 
-      req.io.emit("5da273978f6442aecbe759f2", result);
+      req.io.emit(room._id, result);
       res.send(result);
     } catch (error) {
       res.status(400).send({ error: String(error) });
